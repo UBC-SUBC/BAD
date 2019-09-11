@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'CPEN 221 - Fall 2019'
+version '1.0-RELEASE'
+
+sourceCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use the JUnit 5 test framework
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.0.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0")
+    // to run JUnit 3/4 tests:
+    testImplementation("junit:junit:4.12")
+    testRuntime("org.junit.vintage:junit-vintage-engine:4.12.0")
+}
+
+test {
+    useJUnitPlatform()
+}
