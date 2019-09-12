@@ -10,6 +10,15 @@ public class ArrayThreeSum {
      */
     public static boolean check3Sum(int[] input) {
         // TODO: Implement this method
+        for (int x = 0; x< input.length; x++){
+            for (int j = 0; j< input.length; j++){
+                for (int k = 0; k<input.length; k++) {
+                    if (input[x] + input[j] + input[k]==0) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -22,16 +31,16 @@ public class ArrayThreeSum {
      */
     public static boolean check3Sum_noDups(int[] input) {
         // TODO: Fix this method
-        int i = 1;
-        for (int x: input) {
-            for (int j = i+1; j < input.length; j++)
-                for (int k = j+1; k < input.length; k++) {
-                    if (x + input[j] + input[k] == 0) {
+        for (int x = 0; x< input.length - 2; x++){
+            for (int j = x+1; j< input.length -1; j++){
+                for (int k = j+1; k<input.length; k++) {
+                    if (input[x] + input[j] + input[k]==0) {
                         return true;
                     }
                 }
-            i++;
+            }
         }
         return false;
     }
 }
+
