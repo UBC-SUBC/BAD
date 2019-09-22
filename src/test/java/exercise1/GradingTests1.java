@@ -1,27 +1,22 @@
 package exercise1;
 
-/**
- * All tests in the folder "test" are executed
- * when the "Test" action is invoked.
- *
- */
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-
-public class Array3SumTest {
+public class GradingTests1 {
 
     @Test
     public final void testSingleElementArray1() {
 
         // we define some test input and what result we would expect
-        int[] testInput = new int[] { 3 };
+        int[] testInput = new int[] { 7 };
         boolean expectedResult = false;
 
         // call the findMaximumElement function
         // with test input
         boolean actualResult = ArrayThreeSum.check3Sum(testInput);
+
+        System.out.println("Test1");
 
         // the actualResult value should be the same as the expectedResult value
         assertTrue("Array with one element, does not have a zero three-sum",
@@ -65,7 +60,7 @@ public class Array3SumTest {
     public final void testMultiElementArray1() {
 
         // we define some test input and what result we would expect
-        int[] testInput = new int[] { 3, 5, 2, 1 };
+        int[] testInput = new int[] { 2, 2, 5, 7, 1, 6 };
         boolean expectedResult = false;
 
         // call the findMaximumElement function
@@ -81,7 +76,7 @@ public class Array3SumTest {
     public final void testMultiElementArray2() {
 
         // we define some test input and what result we would expect
-        int[] testInput = new int[] { 3, -2, 1, 4, -1, -2 };
+        int[] testInput = new int[] { 3, 4, -2, 1, 10, 9, 1, -1 };
         boolean expectedResult = true;
 
         // call the findMaximumElement function
@@ -97,7 +92,7 @@ public class Array3SumTest {
     public final void testMultiElementArray3() {
 
         // we define some test input and what result we would expect
-        int[] testInput = new int[] { 2, -1, 4, 5 };
+        int[] testInput = new int[] { 4, -2, 7 };
         boolean expectedResult = true;
 
         // call the findMaximumElement function
