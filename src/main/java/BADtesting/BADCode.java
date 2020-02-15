@@ -1,8 +1,4 @@
-//Change the "polling" cases for what to do
-
-
 package BADtesting;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class BADCode {
@@ -95,7 +91,6 @@ public class BADCode {
 			}
 
 		public static int check(int currInstr, double prevTheta, double prevDelta, double prevAcc)	{
-
 			/*
 			 * Comparison legend (new value is ________ prev value):
 			 *   equal = 0
