@@ -2,12 +2,10 @@ package BADtesting;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 import static BADtesting.overallBuoyancy.convertToData;
 import static BADtesting.overallBuoyancy.readLinesFromFile;
@@ -18,6 +16,7 @@ import static BADtesting.overallBuoyancy.readLinesFromFile;
 * */
 
 public class centreOfBuoyancy {
+
 	static Scanner input = new Scanner(System.in);
 	private static String CSV_PATH = input.next();
 	public static ArrayList<String> aList = new ArrayList<String>();
