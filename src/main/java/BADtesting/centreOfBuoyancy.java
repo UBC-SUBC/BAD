@@ -1,5 +1,7 @@
 package BADtesting;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -9,6 +11,11 @@ import java.io.IOException;
 
 import static BADtesting.overallBuoyancy.convertToData;
 import static BADtesting.overallBuoyancy.readLinesFromFile;
+
+/*
+* This code determines the change required in the centre of buoyancy based on the values of θ, θ', and θ"
+* These values are inputted using a CSV
+* */
 
 public class centreOfBuoyancy {
 	static Scanner input = new Scanner(System.in);
