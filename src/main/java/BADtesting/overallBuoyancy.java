@@ -1,7 +1,7 @@
 package BAD;
 
 import java.util.Scanner;
-import java.io.BufferedReader;
+import java.io.BufferedReader; //should be able to read the file line by line and convert each line into an object representing the data
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
