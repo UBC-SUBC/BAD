@@ -122,57 +122,6 @@ public class improvedCoB{
                     //Observe further cases (ie. Case 7, 8, 9, 19, 20, 21) (the yellow ones)
                     default: 
                         instruction = -1; 
-
-                    //_________________________________________________________________________________________________
-                    /*
-					//Case 1
-					case 111:
-						instruction = L * 10 + 3;
-						break;
-					//Case 3, 12
-					case 112:
-					case 100:
-					case 10:
-						instruction = L * 10 + 2;
-						break;
-					//Case 7
-					case 221:
-						instruction = R * 10 + 3;
-						break;
-					//Case 8, 11, 13
-					case 222:
-					case 200:
-					case 20:
-						instruction = R * 10 + 2;
-						break;
-					//Case 2, 4
-					case 121:
-					case 122:
-						updated = check(instruction, theta, deltaT, acceleration);
-						if (updated >= 200 || updated < 100) {
-							if (code == 121)
-								instruction = R * 10 + 1;
-							else
-								instruction = R * 10 + 2;
-						} else
-							instruction = L * 10 + 1;
-						break;
-					//Case 5, 6 **MAY NEED CHANGING
-					case 211:
-					case 212:
-						updated = check(instruction, theta, deltaT, acceleration);
-						if (updated < 200)
-							if (code == 212)
-								instruction = L * 10 + 1;
-							else
-								instruction = L * 10 + 2;
-						else
-							instruction = R * 10 + 1;
-						break;
-					//Case 9
-					default:
-                        instruction = 0;
-                        */
 				}
 				returnFunc(instruction);
 			}
