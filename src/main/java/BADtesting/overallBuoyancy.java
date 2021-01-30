@@ -1,4 +1,4 @@
-package BAD;
+package BADtesting;
 
 import java.util.Scanner;
 import java.io.BufferedReader; //should be able to read the file line by line and convert each line into an object representing the data

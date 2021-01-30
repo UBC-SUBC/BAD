@@ -1,4 +1,4 @@
-package BAD;
+package BADtesting;
 
 import java.io.*;
 import java.util.ArrayList;
