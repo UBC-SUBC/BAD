@@ -1,4 +1,4 @@
-package BADtesting;
+package BAD;
 
 import java.util.Scanner;
 import java.io.BufferedReader;
