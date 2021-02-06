@@ -1,4 +1,4 @@
-package BADtesting;
+package BAD;
 
 public class Data {
 	public double theta, deltaT, acceleration;

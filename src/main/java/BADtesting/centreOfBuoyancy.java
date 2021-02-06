@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static BADtesting.overallBuoyancy.convertToData;
-import static BADtesting.overallBuoyancy.readLinesFromFile;
+import static BAD.overallBuoyancy.convertToData;
+import static BAD.overallBuoyancy.readLinesFromFile;
 
 /*
 * This code determines the change required in the centre of buoyancy based on the values of θ, θ', and θ"
@@ -25,7 +25,7 @@ public class centreOfBuoyancy {
 			//ArrayList<Double> depthList = new ArrayList<>();
 
 			double theta, deltaT, acceleration;
-			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BADtesting\\src\\main\\java\\BADtesting\\badTest.csv";
+			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BAD\\src\\main\\java\\BADtesting\\badTest.csv";
 			File file = new File(filePath);
 
 			//read from file

@@ -1,4 +1,4 @@
-package BADtesting;
+package BAD;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class csvInputTest {
 
 	public static void main(String[] args){
-		String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BADtesting\\src\\main\\java\\BADtesting\\badTest.csv";
+		String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BAD\\src\\main\\java\\BADtesting\\badTest.csv";
 		File file = new File(filePath);
 
 		//read from file
