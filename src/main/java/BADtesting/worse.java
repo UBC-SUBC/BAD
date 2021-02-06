@@ -12,7 +12,7 @@ import static BADtesting.overallBuoyancy.readLinesFromFile;
 * These values are inputted using a CSV
 * */
 
-public class improvedCoB{
+public class worse{
 
 		public static void main(String[] args) throws IOException{
 
@@ -22,6 +22,7 @@ public class improvedCoB{
 			ArrayList<Double> thetaList = new ArrayList<>();
 			ArrayList<Double> deltaTList = new ArrayList<>();
 			ArrayList<Double> accList = new ArrayList<>();
+			ArrayList<Double> depthList = new ArrayList<>(); 
 
 			double theta, deltaT, acceleration;
 			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BADtesting\\src\\main\\java\\BADtesting\\badTest.csv";
@@ -39,8 +40,9 @@ public class improvedCoB{
 						thetaList.add(Double.parseDouble(values[0]));
 						deltaTList.add(Double.parseDouble(values[1]));
 						accList.add(Double.parseDouble(values[2]));
+						depthList.add(Double.parseDouble(values[3])); 
 
-						System.out.println(values[0]); //this means get all the values in the 3rd column
+						System.out.println(values[3]); //this means get all the values in the 4th column
 					}
 					inputStream.close();
 				} catch (FileNotFoundException e) {
@@ -131,8 +133,101 @@ public class improvedCoB{
                     default: 
                         instruction = -1; 
 				}
+
+				//call the overallBuoyancy function 
+				overallBuoyancy(depthList, 0);
 				returnFunc(instruction);
 			}
+		}
+
+		public static int overallBuoyancy (ArrayList<Double> depthList, int startIndex){
+			
+			int instruction = 0; 
+			int encoding = 0;
+			int positive = 1, increase = 1;
+			int negative = 2, decrease = 2;
+
+			/*Set delta1 and delta2 
+			delta1 = depth2 - depth1 
+			delta2 = depth3 - depth2 */
+			double delta1, delta2;
+			delta1 = depthList.get(startIndex + 1) - depthList.get(startIndex);
+			delta2 = depthList.get(startIndex + 2) - depthList.get(startIndex + 1);
+	
+			/*
+			* Encoding:
+			*   The tens digit will represent the sign of delta1 and the ones digit the sign of delta 2
+			*/
+			if(delta1 > 0)
+				encoding += positive*10;
+			else if(delta1 < 0)
+				encoding += negative*10;
+	
+			if(delta2 > 0)
+				encoding += positive;
+			else if(delta2 < 0)
+				encoding += negative;
+			
+
+			if(delta1>delta2){
+				switch(encoding){
+					case 11: 
+						instruction += decrease*10 + 1;
+						break;
+					case 12: 
+						instruction += increase*10 + 1;
+						break;
+					//Note: delta1>delta2 has a different meaning when it comes to negative numbers
+					case 22:
+						instruction += increase*10 + 2;
+						break; 
+					case 2:
+						instruction += increase*10 + 1;
+						break;
+						
+					//case 21 is impossible
+					//default includes case 10 where we want instruction to be 0
+					default:
+						instruction = 0;
+				}
+			}
+	
+			if(delta2>delta1){
+				switch(encoding){
+					case 11:
+						instruction += decrease*10 + 2;
+						break;
+					case 22:
+						instruction += increase*10 + 1;
+						break;
+					case 21:
+						instruction += decrease*10 + 1;
+						break;
+					case 1: 
+						instruction += decrease*10 + 1;
+						break;
+
+					//case 12 is impossible
+					//default includes case 20 where we want instruction to be 0
+					default:
+						instruction = 0;
+				}
+			}
+	
+			if(delta1 == delta2){
+				switch(encoding){
+					case 11:
+						instruction += decrease*10 + 1;
+						break;
+					case 22:
+						instruction += increase*10 + 1;
+						break;
+					//default includes cases 11, 12 where we want instruction to be 0
+					default:
+						instruction = 0;
+				}
+			}			
+			return instruction; 
 		}
 
 		public static int check(double prevTheta, double prevDelta, double prevAcc)	{
@@ -177,4 +272,5 @@ public class improvedCoB{
 			System.out.println("Instruction "+ instruction);
 			return instruction;
 		}
+
 }

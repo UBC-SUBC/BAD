@@ -79,6 +79,7 @@ public class overallBuoyancy {
 				//Note: delta1>delta2 has a different meaning when it comes to negative numbers
 				case 22:
 					instruction += increase*10 + 3;
+					break; 
 				case 21:
 					instruction += increase*10 + 1;
 					break;
