@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
+
 import static BADtesting.overallBuoyancy.convertToData;
 import static BADtesting.overallBuoyancy.readLinesFromFile;
 
@@ -49,6 +51,10 @@ public class worse{
 					e.printStackTrace();
 				}
             }
+
+			int depthInstruction = 0; 
+			int finalInstruction = 0; 
+
             for(int i = 0; i < thetaList.size(); i++) {
 
 				theta = thetaList.get(i);
@@ -121,7 +127,7 @@ public class worse{
 					//Case 1 and 2 
                     case 111: 
                     case 110: 
-                        instruction = L * 10 + 3; 
+                        insstruction = L * 10 + 3; 
                         break; 
                     
                     //Case 14 
@@ -135,8 +141,15 @@ public class worse{
 				}
 
 				//call the overallBuoyancy function 
-				overallBuoyancy(depthList, 0);
-				returnFunc(instruction);
+				if(instruction != -1){
+					depthInstruction = overallBuoyancy(depthList, i);
+
+					//the first two digits of the final instruction represent the overall buoyancy instruction
+					//The last two represent the CoB instruction 
+					finalInstruction = depthInstruction*100 + instruction; 
+					
+					returnFunc(finalInstruction);
+				}
 			}
 		}
 
