@@ -127,32 +127,6 @@ public class overallBuoyancy {
 			}
 		}
 	}
-
-	public static ArrayList<String> readLinesFromFile(String path) throws IOException{
-		FileReader fileReader = new FileReader(path);
-		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		String line = null;
-		while((line = bufferedReader.readLine()) != null){
-			aList.add(line);
-		}
-		bufferedReader.close();
-		return aList;
-	}
-
-	public static ArrayList<Data> convertToData(ArrayList<String> lineStrings){
-		ArrayList<Data> data = new ArrayList<>();
-		lineStrings.remove(0); //removes first line with the category names
-
-		for(String line : lineStrings){
-			String[] parts = line.split(",");
-			double theta = Double.valueOf(parts[0]);
-			double deltaT = Double.valueOf(parts[1]);
-			double acceleration = Double.valueOf(parts[2]);
-			double depth = Double.valueOf(parts[3]);
-			data.add(new Data(theta, deltaT, acceleration, depth));
-		}
-		return data;
-	}
 }
 
 
