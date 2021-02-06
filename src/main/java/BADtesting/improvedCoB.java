@@ -4,15 +4,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static BAD.overallBuoyancy.convertToData;
-import static BAD.overallBuoyancy.readLinesFromFile;
+import static BADtesting.overallBuoyancy.convertToData;
+import static BADtesting.overallBuoyancy.readLinesFromFile;
 
 /*
 * This code determines the change required in the centre of buoyancy based on the values of θ, θ', and θ"
 * These values are inputted using a CSV
 * */
 
-public class centreOfBuoyancy {
+public class improvedCoB{
 
 		public static void main(String[] args) throws IOException{
 
@@ -25,7 +25,7 @@ public class centreOfBuoyancy {
 			//ArrayList<Double> depthList = new ArrayList<>();
 
 			double theta, deltaT, acceleration;
-			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BAD\\src\\main\\java\\BADtesting\\badTest.csv";
+			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BADtesting\\src\\main\\java\\BADtesting\\badTest.csv";
 			File file = new File(filePath);
 
 			//read from file
@@ -48,9 +48,8 @@ public class centreOfBuoyancy {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-			}
-
-			for(int i = 0; i < thetaList.size(); i++) {
+            }
+            for(int i = 0; i < thetaList.size(); i++) {
 
 				theta = thetaList.get(i);
 				deltaT = deltaTList.get(i);
@@ -85,53 +84,44 @@ public class centreOfBuoyancy {
 					code += 2;
 
 				switch (code) {
-					//Case 1
-					case 111:
-						instruction = L * 10 + 3;
-						break;
-					//Case 3, 12
-					case 112:
-					case 100:
-					case 10:
-						instruction = L * 10 + 2;
-						break;
-					//Case 7
-					case 221:
-						instruction = R * 10 + 3;
-						break;
-					//Case 8, 11, 13
-					case 222:
-					case 200:
-					case 20:
-						instruction = R * 10 + 2;
-						break;
-					//Case 2, 4
-					case 121:
-					case 122:
-						updated = check(instruction, theta, deltaT, acceleration);
-						if (updated >= 200 || updated < 100) {
-							if (code == 121)
-								instruction = R * 10 + 1;
-							else
-								instruction = R * 10 + 2;
-						} else
-							instruction = L * 10 + 1;
-						break;
-					//Case 5, 6 **MAY NEED CHANGING
-					case 211:
-					case 212:
-						updated = check(instruction, theta, deltaT, acceleration);
-						if (updated < 200)
-							if (code == 212)
-								instruction = L * 10 + 1;
-							else
-								instruction = L * 10 + 2;
-						else
-							instruction = R * 10 + 1;
-						break;
-					//Case 9
-					default:
-						instruction = 0;
+                    //Case 1 and 2 
+                    case 111: 
+                    case 110: 
+                        instruction: L * 10 + 3; 
+                        break; 
+                    
+                    //Case 3, 5, 10, 11 and 12 
+                    case 112: 
+                    case 100: 
+                    case 11: 
+                    case 10: 
+                    case 12: 
+                        instruction: L * 10 + 2; 
+                        break;
+
+                    //Case 16, 17, 18, 23, 27
+                    case 21:
+                    case 20:
+                    case 22:
+                    case 200:
+                    case 222:
+                        instruction = R * 10 +2; 
+                        break;
+                        
+                    //Case 25 and 26
+                    case 221:
+                    case 220:
+                        instruction = R * 10 +3;
+                        break;
+
+                    //Case 14 
+                    case 0: 
+                        instruction = 0; 
+                        break; 
+                    
+                    //Observe further cases (ie. Case 7, 8, 9, 19, 20, 21) (the yellow ones)
+                    default: 
+                        instruction = -1; 
 				}
 				returnFunc(instruction);
 			}
