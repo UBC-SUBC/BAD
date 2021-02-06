@@ -1,4 +1,4 @@
-package BADtesting;
+package BADtesting; 
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ public class improvedCoB{
 			ArrayList<Double> thetaList = new ArrayList<>();
 			ArrayList<Double> deltaTList = new ArrayList<>();
 			ArrayList<Double> accList = new ArrayList<>();
-			//ArrayList<Double> depthList = new ArrayList<>();
 
 			double theta, deltaT, acceleration;
 			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BADtesting\\src\\main\\java\\BADtesting\\badTest.csv";
@@ -40,7 +39,6 @@ public class improvedCoB{
 						thetaList.add(Double.parseDouble(values[0]));
 						deltaTList.add(Double.parseDouble(values[1]));
 						accList.add(Double.parseDouble(values[2]));
-						//depthList.add(Double.parseDouble(values[3]));
 
 						System.out.println(values[0]); //this means get all the values in the 3rd column
 					}
@@ -58,7 +56,6 @@ public class improvedCoB{
 				int instruction = 0;
 				int R = 0;
 				int L = 1;
-				int updated;
 
 				/*
 				encoding that gives the signs of the three parameters
@@ -84,19 +81,24 @@ public class improvedCoB{
 					code += 2;
 
 				switch (code) {
-                    //Case 1 and 2 
-                    case 111: 
-                    case 110: 
-                        instruction: L * 10 + 3; 
-                        break; 
-                    
+
+					//Case 7
+					case 121:
+						instruction = R * 10 + 1;
+						break;
+					
+					//Case 19
+					case 211:
+						instruction = L * 10 + 1;
+						break;
+
                     //Case 3, 5, 10, 11 and 12 
                     case 112: 
                     case 100: 
                     case 11: 
                     case 10: 
                     case 12: 
-                        instruction: L * 10 + 2; 
+                        instruction = L * 10 + 2; 
                         break;
 
                     //Case 16, 17, 18, 23, 27
@@ -105,21 +107,27 @@ public class improvedCoB{
                     case 22:
                     case 200:
                     case 222:
-                        instruction = R * 10 +2; 
+                        instruction = R * 10 + 2; 
                         break;
                         
                     //Case 25 and 26
                     case 221:
                     case 220:
-                        instruction = R * 10 +3;
+                        instruction = R * 10 + 3;
                         break;
 
+					//Case 1 and 2 
+                    case 111: 
+                    case 110: 
+                        instruction = L * 10 + 3; 
+                        break; 
+                    
                     //Case 14 
                     case 0: 
                         instruction = 0; 
                         break; 
                     
-                    //Observe further cases (ie. Case 7, 8, 9, 19, 20, 21) (the yellow ones)
+                    //Observe further cases (ie. Case 8, 9, 20, 21) (the blue ones)
                     default: 
                         instruction = -1; 
 				}
@@ -127,7 +135,7 @@ public class improvedCoB{
 			}
 		}
 
-		public static int check(int currInstr, double prevTheta, double prevDelta, double prevAcc)	{
+		public static int check(double prevTheta, double prevDelta, double prevAcc)	{
 			/*
 			 * Comparison legend (new value is ________ prev value):
 			 *   equal = 0
