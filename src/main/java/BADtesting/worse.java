@@ -26,6 +26,8 @@ public class worse{
 			double theta, deltaT, acceleration;
 			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BAD\\src\\main\\java\\BADtesting\\badTest.csv";
 			File file = new File(filePath);
+			int numTestCases = 233; //to ensure we get the correct number of output instructions (value should change; 233 for current case)
+			int numInstructions = 0; 
 
 			//read from file
 			Scanner inputStream;
@@ -136,7 +138,7 @@ public class worse{
                     default: 
                         instruction = -1; 
 				}
-
+				numInstructions++; 
 				//call the overallBuoyancy function 
 				if(instruction != -1){
 					depthInstruction = overallBuoyancy(depthList, i);
@@ -145,9 +147,13 @@ public class worse{
 					//The last two represent the CoB instruction 
 					finalInstruction = depthInstruction*100 + instruction; 
 					
-					returnFunc(finalInstruction);
+					checkInstruction(finalInstruction, numInstructions);
 				}
-			}
+			}		
+			if (numTestCases +2 == numInstructions) //The +2 takes into account the two dummy cases at the end
+				System.out.println("\nNumber of instructions is correct");
+			else 
+				System.out.println("\nError: missing " + (numTestCases - numInstructions) + " instructions");
 		}
 
 		public static int overallBuoyancy (ArrayList<Double> depthList, int startIndex){
@@ -239,6 +245,7 @@ public class worse{
 					}
 				}
 			}
+			//last two lines will be ignored
 			else{
 				System.out.println("Reached max"); 
 				instruction = -1; 
@@ -247,47 +254,12 @@ public class worse{
 			return instruction; 
 		}
 
-		public static int check(double prevTheta, double prevDelta, double prevAcc)	{
-			/*
-			 * Comparison legend (new value is ________ prev value):
-			 *   equal = 0
-			 *   greater than = 1
-			 *   less than = 2
-			 */
-
-			int returnCode = 0;
-
-			//Essentially, get updated input values
-			Scanner input = new Scanner(System.in);
-			double theta, deltaT, acceleration;
-			System.out.println("Enter theta: ");
-			theta = input.nextDouble();
-			System.out.println("Enter change in angle (deltaT): ");
-			deltaT = input.nextDouble();
-			System.out.println("Enter acceleration: ");
-			acceleration = input.nextDouble();
-
-			if(theta>prevTheta)
-				returnCode += 100;
-			else if(theta<prevTheta)
-				returnCode += 200;
-
-			if(deltaT>prevDelta)
-				returnCode += 10;
-			else if (deltaT<prevDelta)
-				returnCode += 20;
-
-			if(acceleration>prevAcc)
-				returnCode += 1;
-			else if (acceleration<prevAcc)
-				returnCode +=2;
-
-			input.close(); 
-			return returnCode;
-		}
-
-		public static int returnFunc(int instruction){
-			System.out.println("Instruction "+ instruction);
+		public static int checkInstruction(int instruction, int numInstructions){
+			
+			System.out.printf("Instruction: %4d\n", instruction);
+			if((numInstructions % 9) == 0){
+				System.out.println("_________________________________");
+			}
 			return instruction;
 		}
 
