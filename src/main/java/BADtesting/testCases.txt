@@ -289,5 +289,9 @@ theta,deltaT,acceleration,depth
 -1,-1,-1,3
 -1,-1,-1,1
 
+--Dummy Data-- (2 extra lines that won't be actually tested)
+0,0,0,0
+0,0,0,0
+
 **Note: We assume that for the "observe further" cases, that since the divers will be actively ballasting the sub, there will eventually be some change in data that 
 will move it to a different case. Thus, we have not tested the situation where we might stay in an infinte loop where theta would stay constant throughout in Cases 8, 9, 20, and 21.

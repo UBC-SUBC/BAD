@@ -6,9 +6,6 @@ import java.util.Scanner;
 
 import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
 
-import static BADtesting.overallBuoyancy.convertToData;
-import static BADtesting.overallBuoyancy.readLinesFromFile;
-
 /*
 * This code determines the change required in the centre of buoyancy based on the values of θ, θ', and θ"
 * These values are inputted using a CSV
@@ -27,7 +24,7 @@ public class worse{
 			ArrayList<Double> depthList = new ArrayList<>(); 
 
 			double theta, deltaT, acceleration;
-			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BADtesting\\src\\main\\java\\BADtesting\\badTest.csv";
+			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BAD\\src\\main\\java\\BADtesting\\badTest.csv";
 			File file = new File(filePath);
 
 			//read from file
@@ -44,7 +41,7 @@ public class worse{
 						accList.add(Double.parseDouble(values[2]));
 						depthList.add(Double.parseDouble(values[3])); 
 
-						System.out.println(values[3]); //this means get all the values in the 4th column
+						//System.out.println(values[3]); //this means get all the values in the 4th column
 					}
 					inputStream.close();
 				} catch (FileNotFoundException e) {
@@ -127,7 +124,7 @@ public class worse{
 					//Case 1 and 2 
                     case 111: 
                     case 110: 
-                        insstruction = L * 10 + 3; 
+                        instruction = L * 10 + 3; 
                         break; 
                     
                     //Case 14 
@@ -164,82 +161,89 @@ public class worse{
 			delta1 = depth2 - depth1 
 			delta2 = depth3 - depth2 */
 			double delta1, delta2;
-			delta1 = depthList.get(startIndex + 1) - depthList.get(startIndex);
-			delta2 = depthList.get(startIndex + 2) - depthList.get(startIndex + 1);
+			if((startIndex+2) < depthList.size()){
+				delta1 = depthList.get(startIndex + 1) - depthList.get(startIndex);
+				delta2 = depthList.get(startIndex + 2) - depthList.get(startIndex + 1);
+		
+				/*
+				* Encoding:
+				*   The tens digit will represent the sign of delta1 and the ones digit the sign of delta 2
+				*/
+				if(delta1 > 0)
+					encoding += positive*10;
+				else if(delta1 < 0)
+					encoding += negative*10;
+		
+				if(delta2 > 0)
+					encoding += positive;
+				else if(delta2 < 0)
+					encoding += negative;
+				
 	
-			/*
-			* Encoding:
-			*   The tens digit will represent the sign of delta1 and the ones digit the sign of delta 2
-			*/
-			if(delta1 > 0)
-				encoding += positive*10;
-			else if(delta1 < 0)
-				encoding += negative*10;
+				if(delta1>delta2){
+					switch(encoding){
+						case 11: 
+							instruction += decrease*10 + 1;
+							break;
+						case 12: 
+							instruction += increase*10 + 1;
+							break;
+						//Note: delta1>delta2 has a different meaning when it comes to negative numbers
+						case 22:
+							instruction += increase*10 + 2;
+							break; 
+						case 2:
+							instruction += increase*10 + 1;
+							break;
+							
+						//case 21 is impossible
+						//default includes case 10 where we want instruction to be 0
+						default:
+							instruction = 0;
+					}
+				}
+		
+				if(delta2>delta1){
+					switch(encoding){
+						case 11:
+							instruction += decrease*10 + 2;
+							break;
+						case 22:
+							instruction += increase*10 + 1;
+							break;
+						case 21:
+							instruction += decrease*10 + 1;
+							break;
+						case 1: 
+							instruction += decrease*10 + 1;
+							break;
 	
-			if(delta2 > 0)
-				encoding += positive;
-			else if(delta2 < 0)
-				encoding += negative;
+						//case 12 is impossible
+						//default includes case 20 where we want instruction to be 0
+						default:
+							instruction = 0;
+					}
+				}
+		
+				if(delta1 == delta2){
+					switch(encoding){
+						case 11:
+							instruction += decrease*10 + 1;
+							break;
+						case 22:
+							instruction += increase*10 + 1;
+							break;
+						//default includes cases 11, 12 where we want instruction to be 0
+						default:
+							instruction = 0;
+					}
+				}
+			}
+			else{
+				System.out.println("Reached max"); 
+				instruction = -1; 
+			}
 			
-
-			if(delta1>delta2){
-				switch(encoding){
-					case 11: 
-						instruction += decrease*10 + 1;
-						break;
-					case 12: 
-						instruction += increase*10 + 1;
-						break;
-					//Note: delta1>delta2 has a different meaning when it comes to negative numbers
-					case 22:
-						instruction += increase*10 + 2;
-						break; 
-					case 2:
-						instruction += increase*10 + 1;
-						break;
-						
-					//case 21 is impossible
-					//default includes case 10 where we want instruction to be 0
-					default:
-						instruction = 0;
-				}
-			}
-	
-			if(delta2>delta1){
-				switch(encoding){
-					case 11:
-						instruction += decrease*10 + 2;
-						break;
-					case 22:
-						instruction += increase*10 + 1;
-						break;
-					case 21:
-						instruction += decrease*10 + 1;
-						break;
-					case 1: 
-						instruction += decrease*10 + 1;
-						break;
-
-					//case 12 is impossible
-					//default includes case 20 where we want instruction to be 0
-					default:
-						instruction = 0;
-				}
-			}
-	
-			if(delta1 == delta2){
-				switch(encoding){
-					case 11:
-						instruction += decrease*10 + 1;
-						break;
-					case 22:
-						instruction += increase*10 + 1;
-						break;
-					//default includes cases 11, 12 where we want instruction to be 0
-					default:
-						instruction = 0;
-				}
-			}			
 			return instruction; 
 		}
 
@@ -278,6 +282,7 @@ public class worse{
 			else if (acceleration<prevAcc)
 				returnCode +=2;
 
+			input.close(); 
 			return returnCode;
 		}
 

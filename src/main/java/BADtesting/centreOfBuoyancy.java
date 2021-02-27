@@ -4,9 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static BAD.overallBuoyancy.convertToData;
-import static BAD.overallBuoyancy.readLinesFromFile;
-
 /*
 * This code determines the change required in the centre of buoyancy based on the values of θ, θ', and θ"
 * These values are inputted using a CSV
@@ -22,7 +19,6 @@ public class centreOfBuoyancy {
 			ArrayList<Double> thetaList = new ArrayList<>();
 			ArrayList<Double> deltaTList = new ArrayList<>();
 			ArrayList<Double> accList = new ArrayList<>();
-			//ArrayList<Double> depthList = new ArrayList<>();
 
 			double theta, deltaT, acceleration;
 			String filePath = "C:\\Users\\cxson\\OneDrive\\Desktop\\Documents\\SUBC\\BAD\\src\\main\\java\\BADtesting\\badTest.csv";
@@ -40,7 +36,6 @@ public class centreOfBuoyancy {
 						thetaList.add(Double.parseDouble(values[0]));
 						deltaTList.add(Double.parseDouble(values[1]));
 						accList.add(Double.parseDouble(values[2]));
-						//depthList.add(Double.parseDouble(values[3]));
 
 						System.out.println(values[0]); //this means get all the values in the 3rd column
 					}
@@ -137,7 +132,7 @@ public class centreOfBuoyancy {
 			}
 		}
 
-		public static int check(int currInstr, double prevTheta, double prevDelta, double prevAcc)	{
+		public static int check(double prevTheta, double prevDelta, double prevAcc)	{
 			/*
 			 * Comparison legend (new value is ________ prev value):
 			 *   equal = 0
